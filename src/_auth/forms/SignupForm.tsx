@@ -11,32 +11,37 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 
-import { Input } from "@/components/ui/input"
-import { Button } from "@/srccomponents/ui/button"
-import { useForm } from "react-hook-form"
-
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-})
+import { Input } from "@/components/ui/input";
+import { Button } from "@/srccomponents/ui/button";
+import { useForm } from "react-hook-form";
+import { signupValidation } from "@/srclib/validation";
+// import { z } from "zod";
 
 
 const SignupForm = () => {
   
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof signupValidation>>({
+    resolver: zodResolver(signupValidation),
     defaultValues: {
-      username: "",
+      name: '',
+      username: '',
+      password: '',
+      email: '',
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof signupValidation>) {
     console.log(values)
   }
 
   return (
-    <div>
       <Form {...form}>
+        <div className="sm:w-420 flex-center flex-col">
+          <img src="/assets/images/profile.png" alt="logo"></img>
+        </div>
+
+
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
@@ -57,7 +62,6 @@ const SignupForm = () => {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
-    </div>
   )
 }
 
