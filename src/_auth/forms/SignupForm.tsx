@@ -39,6 +39,7 @@ const SignupForm = () => {
     const newUser = await createUserAccount(values);
     
     console.log(newUser)
+    console.log("Works?")
   }
 
   return (
