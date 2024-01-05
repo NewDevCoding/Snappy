@@ -17,14 +17,17 @@ import { Button } from "@/srccomponents/ui/button";
 import { useForm } from "react-hook-form";
 import { signupValidation } from "@/srclib/validation";
 import Loader from "C:/Users/isaac/Desktop/Snappy/src/components/shared/Loader.tsx"
-import { createUserAccount } from "@/srclib/appwrite/api";
+import { useCreateUserAccountMutation } from "@/srclib/react-query/queriesAndMutations";
 // import { z } from "zod";
 
 
 const SignupForm = () => {
   const { toast } = useToast();
-  const isLoading = false;
+ 
 
+  const { mutateAsync: createUserAccount, isLoading: isCreatingUser } = useCreateUserAccountMutation();
+
+  // define your form
   const form = useForm<z.infer<typeof signupValidation>>({
     resolver: zodResolver(signupValidation),
     defaultValues: {
@@ -110,7 +113,7 @@ const SignupForm = () => {
             )}
             />
           <Button type="submit" className="shad-button_primary">
-            {isLoading ? (
+            {isCreatingUser ? (
               <div className="flex-center gap-2">
                 <Loader/> Loading...
               </div>
