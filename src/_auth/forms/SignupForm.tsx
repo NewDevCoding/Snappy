@@ -2,11 +2,10 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 
-
+import { useToast } from "@/components/ui/use-toast";
 import {
   Form,
   FormControl,
-  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,6 +22,7 @@ import { createUserAccount } from "@/srclib/appwrite/api";
 
 
 const SignupForm = () => {
+  const { toast } = useToast();
   const isLoading = false;
 
   const form = useForm<z.infer<typeof signupValidation>>({
@@ -39,8 +39,13 @@ const SignupForm = () => {
     const newUser = await createUserAccount(values);
     
     console.log(newUser)
-    console.log('YEAH')
-  }
+    if(!newUser){
+      return toast({ title: ' Sign up failed. Please try again. '})
+    }
+
+    // const session = await signInAccount()
+    
+  };
 
   return (
       <Form {...form}>
