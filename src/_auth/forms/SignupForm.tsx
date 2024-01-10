@@ -17,7 +17,7 @@ import { Button } from "@/srccomponents/ui/button";
 import { useForm } from "react-hook-form";
 import { signupValidation } from "@/srclib/validation";
 import Loader from "C:/Users/isaac/Desktop/Snappy/src/components/shared/Loader.tsx"
-import { useCreateUserAccount } from "@/srclib/react-query/queriesAndMutations";
+import { useCreateUserAccount, useSignInAccount } from "@/srclib/react-query/queriesAndMutations";
 // import { z } from "zod";
 
 
@@ -27,6 +27,7 @@ const SignupForm = () => {
 
   const { mutateAsync: createUserAccount, isLoading: isCreatingUser } = useCreateUserAccount();
 
+  const { mutateAsync: signInAccount, isLoading: isSigningIn } = useSignInAccount();
   // define your form
   const form = useForm<z.infer<typeof signupValidation>>({
     resolver: zodResolver(signupValidation),
@@ -46,7 +47,14 @@ const SignupForm = () => {
       return toast({ title: ' Sign up failed. Please try again. '})
     }
 
-    // const session = await signInAccount()
+    const session = await signInAccount({
+      email: values.email,
+      password: values.password,
+    })
+
+    if(!session){
+      return toast({ title:'Sign in failed. Please try again. '})
+    }
     
   };
 
