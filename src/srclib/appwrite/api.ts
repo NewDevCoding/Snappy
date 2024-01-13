@@ -19,7 +19,7 @@ export async function createUserAccount(user: INewUser){
             accountId: newAccount.$id,
             name: newAccount.name,
             email: newAccount.email,
-            imageUrl: avatarUrl,
+            imageURL: avatarUrl,
             username: user.username,
             
         })
@@ -35,12 +35,12 @@ export async function saveUserToDB(user: {
     accountId: string;
     email: string;
     name: string;
-    imageUrl: URL;
+    imageURL: URL;
     username: string;
 }) {
     try {
       const newUser = await databases.createDocument(
-        appwriteConfig.databaseId,
+        '65751a26b8b6a4d30093',
         appwriteConfig.userCollectionId,
         ID.unique(),
         user,
@@ -70,8 +70,10 @@ export async function getCurrentUser(){
         if (!currentAccount) throw Error;
 
         const currentUser = await databases.listDocuments(
-            appwriteConfig.databaseId,
-            appwriteConfig.userCollectionId,
+            // appwriteConfig.databaseId
+            '65751a26b8b6a4d30093',
+            // appwriteConfig.userCollectionId
+            '65761b4b113c481d6490',
             [Query.equal("accountId", currentAccount.$id)]
         );
 

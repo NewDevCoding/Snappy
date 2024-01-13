@@ -46,7 +46,7 @@ const SignupForm = () => {
     
     console.log(newUser)
     if(!newUser){
-      return toast({ title: ' Sign up failed. Please try again. '})
+      return toast({ title: ' Signnn up failed. Please try again. '})
     }
 
     const session = await signInAccount({
