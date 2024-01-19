@@ -1,6 +1,6 @@
 const LeftSidebar = () => {
     return (
-    <div>LeftSidebar</div>
+      <div>LeftSidebar</div>
     )
 }
 
