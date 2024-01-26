@@ -15,11 +15,7 @@ import {
 
 import { Input } from "@/components/ui/input"
 
-const FileUploader = () => {
-    return (
-      <div>FileUploader</div>
-    )
-  }
+import { FileUploader } from "../shared"
 
 import { Textarea } from "../ui/textarea"
 
