@@ -3,39 +3,55 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Button } from "../ui/button"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+import { FormControl, Form, FormDescription, FormField, FormItem, FormLabel, FormMessage,
 } from "@/components/ui/form"
 
 import { Input } from "@/components/ui/input"
+// import { useCreatePost } from "C:/Users/isaac/Desktop/Snappy/src/srclib/react-query/queriesAndMutations.ts"
 
 import { FileUploader } from "../shared"
 
 import { Textarea } from "../ui/textarea"
+import { PostValidation } from "@/srclib/validation"
+import { Models } from "appwrite"
+import { useUserContext } from "@/context/AuthContext"
+import { useToast } from "../ui/use-toast"
+import { useNavigate } from "react-router-dom"
 
-const formSchema = z.object({
-    username: z.string().min(2, {
-        message: "",
-    }),
-})
+type PostFormProps = {
+    post?: Models.Document;
+}
 
-const PostForm = ({ post }) => {
+const PostForm = ({ post }: PostFormProps) => {
+    // const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost()
+    const { user } = useUserContext();
+    const { toast } = useToast();
+    const navigate = useNavigate()
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof PostValidation>>({
+        resolver: zodResolver(PostValidation),
         defaultValues: {
-            username: "",
+            caption: post ? post?.caption : "",
+            file: [],
+            location: post ? post?.location : "",
+            tags: post ? post.tags.join(',') : '',
         }
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>){
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof PostValidation>){
+        // const newPost = await useCreatePost({
+        //     ...values,
+        //     userId: user.id,
+
+        // })
+
+        // if(!newPost) {
+        //     toast({
+        //         title: 'Please try again'
+        //     })
+        // }
+
+        // navigate('/');
     }
 
     return (
@@ -83,7 +99,7 @@ const PostForm = ({ post }) => {
                         <FormItem>
                             <FormLabel className="shad-form_label">Add Location</FormLabel>
                             <FormControl>
-                                <Input type="text" className="shad-input" />
+                                <Input type="text" className="shad-input" {...field} />
                                 
                             </FormControl>
                             <FormMessage className="shad-form_message" />
@@ -100,7 +116,8 @@ const PostForm = ({ post }) => {
                             <Input 
                                 type="text" 
                                 className="shad-input"
-                                placeholder="JS, React, NextJS" 
+                                placeholder="JS, React, NextJS"
+                                {...field} 
                             />
                             
                         </FormControl>
