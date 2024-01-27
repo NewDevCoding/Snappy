@@ -105,7 +105,7 @@ export async function signOutAccount(){
          const fileUrl = getFilePreview(uploadedFile.$id)
 
          if(!fileUrl) {
-             deleteFile(uploadedFile.$id)
+             await deleteFile(uploadedFile.$id)
              throw Error;
          }
 
@@ -115,17 +115,21 @@ export async function signOutAccount(){
          // save post to database
          const newPost = await databases.createDocument(
              '65751a26b8b6a4d30093',
-             appwriteConfig.postCollectionId,
+            //  appwriteConfig.postCollectionId
+            '65761b081a49f776c550',
              ID.unique(),
              {
-                 creator: post.userId,
-                 caption: post.caption,
-                 imageURL: fileUrl,
-                 imageId: uploadedFile.$id,
-                 location: post.location,
-                 tags: tags,
+                //   creator: post.userId,
+                  caption: post.caption,
+                //   imageURL: fileUrl,
+                  imageURL: 'http://127.0.0.1:5500/public/assets/icons/back.svg',
+                  
+                  imageId: uploadedFile.$id,
+                  location: post.location,
+                  tags: tags,
              }
          )
+
 
          if(!newPost) {
              await deleteFile(uploadedFile.$id);
@@ -140,7 +144,8 @@ export async function signOutAccount(){
  export async function uploadFile(file: File) {
      try {
          const uploadedFile = await storage.createFile(
-             appwriteConfig.storageId,
+            //  appwriteConfig.storageId
+            '657519daa826ae67d29c',
              ID.unique(),
              file,
          );
@@ -154,13 +159,16 @@ export async function signOutAccount(){
  export async function getFilePreview(fileId: string){
      try {
          const fileUrl = storage.getFilePreview(
-             appwriteConfig.storageId,
+            //  appwriteConfig.storageId
+            '657519daa826ae67d29c',
              fileId,
              2000,
              2000,
              "top",
              100,
          )
+
+         if(!fileUrl) throw Error;
 
          return fileUrl;
      } catch (error) {
@@ -170,8 +178,9 @@ export async function signOutAccount(){
 
  export async function deleteFile(fileId: string){
      try {
-         await storage.deleteFile(appwriteConfig.storageId, fileId)
+         await storage.deleteFile('657519daa826ae67d29c', fileId)
      } catch (error) {
          console.log(error)
      }
  }
+
