@@ -7,11 +7,6 @@ import SignupForm from './_auth/forms/SignupForm';
 import AuthLayout from './_auth/AuthLayout';
 import RootLayout from './_root/RootLayout';
 
-const string = "AAAAGGHGHGHGH"
-
-
-console.log(string)
-
 import { Toaster } from './components/ui/toaster';
 
 const App = () => {
