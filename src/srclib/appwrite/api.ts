@@ -103,7 +103,8 @@ export async function signOutAccount(){
 
          // get file url
          const fileUrl = getFilePreview(uploadedFile.$id)
-
+        //  console.log(fileUrl)
+        //  console.log('yes/no')
          if(!fileUrl) {
              await deleteFile(uploadedFile.$id)
              throw Error;
@@ -184,3 +185,15 @@ export async function signOutAccount(){
      }
  }
 
+export async function getRecentPosts() {
+    const posts = await databases.listDocuments(
+        // database id
+        '65751a26b8b6a4d30093',
+        // post collection id
+        '65761b081a49f776c550',
+        [Query.orderDesc('$createdAt'), Query.limit(20)]
+    )
+    if (!posts) throw Error
+
+    return posts;
+}
