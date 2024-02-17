@@ -57,8 +57,3 @@ export const useSignOutAccount = () => {
         queryFn: getRecentPosts,
     })
  }
- console.log('function')
- console.log('interesting')
- export const useTest = () => {
-    console.log('testing...')
- }
