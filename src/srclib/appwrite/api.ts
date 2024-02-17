@@ -120,7 +120,7 @@ export async function signOutAccount(){
             '65761b081a49f776c550',
              ID.unique(),
              {
-                //   creator: post.userId,
+                  Creator: post.userId,
                   caption: post.caption,
                 //   imageURL: fileUrl,
                   imageURL: 'http://127.0.0.1:5500/public/assets/icons/back.svg',
@@ -185,15 +185,15 @@ export async function signOutAccount(){
      }
  }
 
-export async function getRecentPosts() {
-    const posts = await databases.listDocuments(
-        // database id
-        '65751a26b8b6a4d30093',
-        // post collection id
-        '65761b081a49f776c550',
-        [Query.orderDesc('$createdAt'), Query.limit(20)]
-    )
-    if (!posts) throw Error
+ export async function getRecentPosts() {
+     const posts = await databases.listDocuments(
+        //  appwriteConfig.databaseId,
+         '65751a26b8b6a4d30093',
+        //  appwriteConfig.postCollectionId,
+         '65761b081a49f776c550',
+         [Query.orderDesc('$createdAt'), Query.limit(20)]
+     )
+     if (!posts) throw Error
 
-    return posts;
-}
+     return posts;
+ }
