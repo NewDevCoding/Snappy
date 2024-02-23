@@ -123,7 +123,8 @@ export async function signOutAccount(){
                   Creator: post.userId,
                   caption: post.caption,
                 //   imageURL: fileUrl,
-                  imageURL: 'http://127.0.0.1:5500/public/assets/icons/back.svg',
+                // 'http://127.0.0.1:5500/public/assets/icons/back.svg'
+                  imageURL: fileUrl,
                   
                   imageId: uploadedFile.$id,
                   location: post.location,
@@ -157,7 +158,7 @@ export async function signOutAccount(){
      }
  }
 
- export async function getFilePreview(fileId: string){
+ export function getFilePreview(fileId: string){
      try {
          const fileUrl = storage.getFilePreview(
             //  appwriteConfig.storageId
@@ -196,4 +197,64 @@ export async function signOutAccount(){
      if (!posts) throw Error
 
      return posts;
+ }
+
+
+ export async function likePost(postId: string, likesArray: string[]){
+    try {
+        const updatedPost = await databases.updateDocument(
+            '65751a26b8b6a4d30093',
+            '65761b081a49f776c550',
+            postId,
+            {
+                likes: likesArray
+            }
+        )
+
+        if(!updatedPost) throw Error
+
+        return updatedPost;
+    } catch (error) {
+        console.log(error)
+    }
+ }
+
+ export async function savePost(postId: string, userId: string){
+    try {
+        const updatedPost = await databases.createDocument(
+            // database id
+            '65751a26b8b6a4d30093',
+            // saves collection id
+            '65761b679a8b87eeaad0',
+            ID.unique(),
+            {
+                user: userId,
+                post: postId
+            }
+        )
+
+        if(!updatedPost) throw Error
+
+        return updatedPost;
+    } catch (error) {
+        console.log(error)
+    }
+ }
+
+ export async function deleteSavedPost(savedRecordId: string){
+    try {
+        const statusCode = await databases.deleteDocument(
+            // database id
+            '65751a26b8b6a4d30093',
+            // saves collection id
+            '65761b679a8b87eeaad0',
+            savedRecordId,
+        )
+
+        if(!statusCode) throw Error
+
+        return { status: 'ok' };
+    } catch (error) {
+        console.log(error)
+    }
  }
