@@ -258,3 +258,19 @@ export async function signOutAccount(){
         console.log(error)
     }
  }
+
+ export async function getPostById(postId: string){
+    try {
+        const post = await databases.getDocument(
+            // database id
+            '65751a26b8b6a4d30093',
+            // post collection id
+            '65761b081a49f776c550',
+            postId,
+
+        )
+        return post;
+    } catch (error) {
+        console.log(error)
+    }
+ }
