@@ -44,7 +44,7 @@ const PostCard = ({post}: PostCardProps) => {
           </div>
           <Link 
             to={`/update-post/${post.$id}`}
-            className={`${user.id !== post.Creator.$id && "hidden"}`}
+            className={`${user.user.id !== post.Creator.$id && "hidden"}`}
           >
             <img 
             src="/assets/icons/edit.svg"
