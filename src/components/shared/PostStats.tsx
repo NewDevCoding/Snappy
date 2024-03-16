@@ -23,7 +23,8 @@ const [isSaved, setIsSaved] = useState(false)
   const { data: currentUser } = useGetCurrentUser();
 
 
-    
+//   const otherSavePostRecord = currentUser?.save.find((record: Models.Document
+//     ) => record.post.$id === post.$id)
 
   const handleLikePost = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -42,11 +43,19 @@ const [isSaved, setIsSaved] = useState(false)
     likePost({ postId: post.$id, likesArray: newLikes })
   }
 
+  
+//    useEffect(() => {
+//      setIsSaved(otherSavePostRecord ? true : false)
+//    }, [currentUser])
+ 
+
+
   const handleSavePost = (e: React.MouseEvent) => {
     e.stopPropagation();
-
     const savePostRecord = currentUser?.save.find((record: Models.Document
         ) => record.$id === post.$id)
+    
+    
 
     if(savePostRecord){
         setIsSaved(false)

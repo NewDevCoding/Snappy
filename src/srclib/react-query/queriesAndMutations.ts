@@ -97,10 +97,10 @@ export const useSavePost = ( ) => {
                 })
                 queryClient.invalidateQueries({
                     queryKey: [QUERY_KEYS.GET_CURRENT_USER]
-                })
+                });
             }
-    })
-}
+    });
+};
 
 export const useDeleteSavedPost = ( ) => {
     const queryClient = useQueryClient();
