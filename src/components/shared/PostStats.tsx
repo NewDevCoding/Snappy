@@ -22,7 +22,8 @@ const [isSaved, setIsSaved] = useState(false)
 
   const { data: currentUser } = useGetCurrentUser();
 
-  
+
+    
 
   const handleLikePost = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -51,7 +52,7 @@ const [isSaved, setIsSaved] = useState(false)
         setIsSaved(false)
         return deleteSavedPost(savePostRecord.$id)
     } 
-        savePost({ userId: userId, postId: post.$id})
+        savePost({ postId: post.$id, userId})
         setIsSaved(true)
     
   }
