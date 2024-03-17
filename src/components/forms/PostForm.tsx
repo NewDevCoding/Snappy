@@ -57,6 +57,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
          navigate('/');
     }
 
+    console.log(post?.imageURL);
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}
@@ -84,7 +85,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
                             <FormControl>
                                 <FileUploader 
                                     fieldChange={field.onChange}
-                                    mediaUrl={post?.mediaUrl}
+                                    mediaUrl={post?.imageURL}
                                 />
 
 
