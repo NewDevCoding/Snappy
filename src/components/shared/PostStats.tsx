@@ -5,7 +5,7 @@ import { checkIsLiked } from '@/types/utils';
 import React from 'react';
 
 type PostStatsProps = {
-    post: Models.Document;
+    post?: Models.Document;
     userId: string;
 }
 
@@ -40,7 +40,7 @@ const [isSaved, setIsSaved] = useState(false)
     }
 
     setLikes(newLikes)
-    likePost({ postId: post.$id, likesArray: newLikes })
+    likePost({ postId: post?.$id || '', likesArray: newLikes })
   }
 
   
@@ -53,7 +53,7 @@ const [isSaved, setIsSaved] = useState(false)
   const handleSavePost = (e: React.MouseEvent) => {
     e.stopPropagation();
     const savePostRecord = currentUser?.save.find((record: Models.Document
-        ) => record.$id === post.$id)
+        ) => record.$id === post?.$id)
     
     
 
@@ -61,7 +61,7 @@ const [isSaved, setIsSaved] = useState(false)
         setIsSaved(false)
         return deleteSavedPost(savePostRecord.$id)
     } 
-        savePost({ postId: post.$id, userId})
+        savePost({ postId: post?.$id || '', userId})
         setIsSaved(true)
     
   }
