@@ -11,11 +11,7 @@ import { Toaster } from './components/ui/toaster';
 
 const App = () => {
 
-  const Explore = () => {
-    return (
-      <div>Explore</div>
-    )
-  }
+  
 
   return (
     <main className='flex h-screen'>
