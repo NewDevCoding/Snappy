@@ -3,7 +3,7 @@ import UserCard from '@/components/shared/UserCard'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 import useDebounce from '@/hooks/useDebounce'
-import { useGetUsers, useSearchUsers } from '@/srclib/react-query/queriesAndMutations'
+import { useGetUsers } from '@/srclib/react-query/queriesAndMutations'
 import { useState } from 'react'
 
 
@@ -11,7 +11,6 @@ const AllUsers = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const debouncedValue = useDebounce(searchTerm, 500)
   const { toast } = useToast()
-  const { data: searchedUsers, isFetching: isSearchFetching} = useSearchUsers(debouncedValue)
   const { data: Creators, isLoading, isError: isErrorCreators} = useGetUsers()
   
 
