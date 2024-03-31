@@ -384,3 +384,25 @@ export async function searchPosts(searchTerm: string){
         console.log(error);
     }
 }
+
+export async function getUsers(limit?: number) {
+    const queries: any[] = [Query.orderDesc("$createdAt")];
+  
+    if (limit) {
+      queries.push(Query.limit(limit));
+    }
+  
+    try {
+      const users = await databases.listDocuments(
+        '65751a26b8b6a4d30093',
+        '65761b4b113c481d6490',
+        queries
+      );
+  
+      if (!users) throw Error;
+  
+      return users;
+    } catch (error) {
+      console.log(error);
+    }
+  }
