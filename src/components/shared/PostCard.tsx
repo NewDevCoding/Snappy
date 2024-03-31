@@ -54,6 +54,7 @@ const PostCard = ({post}: PostCardProps) => {
             />
             </Link>
         </div>
+
         <Link to={`/posts/${post.$id}`}>
           <div className="small-medium lg:base-medium py-5">
             <p>{post.caption}</p>
@@ -65,6 +66,7 @@ const PostCard = ({post}: PostCardProps) => {
               ))}
             </ul>
           </div>
+          
           <img
            src={post.imageURL || 'assets/icons/profile-placeholder.svg'}
             alt="post image"
